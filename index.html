@@ -19,9 +19,65 @@
 <body>
     <div id="app" class="container">
         <!-- left -->
+        <aside class="left">
+            <header>
+                <img 
+                    class="avatar" 
+                    :src="`./img/avatar${me.avatar}.jpg`"
+                    :alt="`${me.name} avatar`"
+                >
+                <div class="fg-1">
+                    <h3>{{ me.name }}</h3>
+                </div>
+                <i class="fas fa-circle-notch icon"></i>
+                <i class="fas fa-comment-alt icon"></i>
+                <i class="fas fa-ellipsis-v icon"></i>
+            </header>
+
+            <section class="notifications d-flex jcc aic">
+                <div class="bell d-flex jcc aic">
+                    <i class="fas fa-bell-slash icon"></i>
+                </div>
+                <div class="fg-1">
+                    <h2>Ricevi notifiche di nuovi messaggi</h2>
+                    <a href="#">Attiva notifiche desktop</a>
+                </div>
+            </section>
+
+            <section class="search d-flex jcc aic">
+                <div class="search-input d-flex aic">
+                    <input 
+                    type="text"
+                    placeholder="Cerca o inizia una nuova chat"
+                    class="fg-1"
+                    >
+                </div>
+            </section>
+
+            <section class="chats fg-1">
+                <div 
+                    class="chat d-flex aic"
+                    v-for="contact in contacts"
+                >
+                    <img
+                        class="avatar"
+                        :src="`./img/avatar${contact.avatar}.jpg`"
+                        :alt="`${contact.name} avatar`"
+                    >
+                    <div class="fg-1">
+                        <h2>{{ contact.name }}</h2>
+                    </div>
+                </div>
+            </section>
+        </aside>
 
         <!-- right -->
-        
+        <main class="right">
+            <header>
+
+            </header>
+        </main>
+
     </div>
     
     <!-- JS -->

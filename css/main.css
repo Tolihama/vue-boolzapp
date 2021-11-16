@@ -7,6 +7,10 @@
 }
 
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     background-image: linear-gradient(
         to bottom,
         #32a093 0%,
@@ -14,5 +18,148 @@ body {
         #dce0dc 15%,
         #dce0dc 100%
     );
-    height: 100vh;
+}
+
+h2 {
+    font-size: 17px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+/* UTILITIES */
+/* Flex */
+.d-flex {
+    display: flex;
+}
+
+.d-column {
+    flex-direction: column;
+}
+
+.jcc {
+    justify-content: center;
+}
+
+.aic {
+    align-items: center;
+}
+
+.fg-1 {
+    flex-grow: 1;
+}
+
+/* APP CONTAINER */
+.container {
+    display: flex;
+    width: 85%;
+    height: 90%;
+    min-width: 900px;
+}
+
+.container header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    padding: 10px 15px 10px 5px;
+    background-color: #ededed;
+}
+
+.container header > * {
+    margin: 10px 5px;
+}
+
+.avatar {
+    background-color: #fff;
+    border-radius: 50%;
+    height: 100%;
+}
+
+.container header .icon {
+    color: #bababa;
+    font-size: 24px;
+    margin: 0 10px;
+}
+
+/* LEFT */
+.container aside.left {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 3);
+    border-right: 1px solid #dbdbdb;
+}
+
+.notifications {
+    height: 80px;
+    padding: 10px 15px;
+    background-color: #a2dffe;
+}
+
+.notifications .bell {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.notifications .bell .icon {
+    font-size: 24px;
+    color: #a2dffe;
+}
+
+.notifications a {
+    color: #618497;
+}
+
+.search {
+    height: 50px;
+    background-color: #f6f6f6;
+}
+
+.search .search-input {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #f6f6f6;
+    margin: 5px 10px;
+}
+
+.search .search-input::before {
+    content: '\f002';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 700;
+    color: #bec1c3;
+    margin: 0 20px;
+}
+
+.search .search-input input {
+    padding: 10px;
+    border: none;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.chats {
+    background-color: #fff;
+}
+
+.chats .chat {
+    height: 80px;
+    padding: 10px 20px;
+    border-bottom: 1px solid #f6f6f6;
+}
+
+.chats .chat .avatar {
+    margin-right: 20px;
+}
+
+.chats .chat:last-child {
+    border: none;
+}
+
+/* RIGHT */
+.container main.right {
+    flex-grow: 1;
 }

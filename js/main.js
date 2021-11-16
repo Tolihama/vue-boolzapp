@@ -1,6 +1,10 @@
 const app = new Vue({
     el: '#app',
     data: {
+        me: {
+            name: 'Nome Utente',
+            avatar: '_io',
+        },
         contacts: [
             {
                 name: 'Michele',
