@@ -146,6 +146,10 @@ h3 {
     border-bottom: 1px solid #f6f6f6;
 }
 
+.chats .chat:hover {
+    background-color: #f6f6f6;
+}
+
 .chats .chat .avatar {
     margin-right: 20px;
 }
@@ -187,25 +191,47 @@ h3 {
 /* Messages */
 .messages {
     padding: 50px 70px;
+    overflow-y: auto;
 }
 
 .message {
+    position: relative;
     width: 40%;
     padding: 10px 15px 5px;
     margin-bottom: 15px;
-    border-radius: 10px;
 }
 
-.send {
-    justify-content: end;
-}
-
-.send .message {
+.message.send {
+    align-self: flex-end;
     background-color: #ddfabf;
+    border-radius: 10px 0 10px 10px;
 }
 
-.received .message {
+.message.received {
     background-color: #fff;
+    border-radius: 0 10px 10px 10px;
+}
+
+.message.send::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 0;
+    border-top: 15px solid #ddfabf;
+    border-right: 15px solid transparent;
+    width: 0;
+    height: 0;
+}
+
+.message.received::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 0;
+    border-top: 15px solid #fff;
+    border-left: 15px solid transparent;
+    width: 0;
+    height: 0;
 }
 
 .message .date {
