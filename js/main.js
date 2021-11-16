@@ -88,6 +88,7 @@ const app = new Vue({
                     }
                 ],
             },
-        ]        
+        ],
+        activeChatIndex: 0,        
     },
 });
