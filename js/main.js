@@ -96,6 +96,9 @@ const app = new Vue({
         getDate() {
             return dayjs().format('DD/MM/YYYY HH:mm:ss');
         },
+        updateScroll(ref) {
+            ref.scrollTop = ref.scrollHeight;
+        },
         openChat(chatIndex) {
             this.activeChatIndex = chatIndex;
         },
@@ -107,6 +110,9 @@ const app = new Vue({
                     status: 'sent'
                 });
                 this.newMsgInput = '';
+                setTimeout(() => {
+                    this.updateScroll(this.$refs.messages);
+                }, 50);
                 setTimeout(this.botReply, 1000);
             }
         },
@@ -116,6 +122,9 @@ const app = new Vue({
                 text: 'ok',
                 status: 'received'
             });
-        }
+            setTimeout(() => {
+                this.updateScroll(this.$refs.messages);
+            }, 50);
+        },
     },
 });
