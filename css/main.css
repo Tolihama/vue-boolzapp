@@ -81,7 +81,8 @@ h3 {
 
 /* LEFT */
 .container aside.left {
-    width: calc(100% / 3);
+    width: 25%;
+    flex-shrink: 0;
     border-right: 1px solid #dbdbdb;
 }
 
@@ -194,7 +195,7 @@ h3 {
 
 /* Messages */
 .messages {
-    padding: 50px 70px;
+    padding: 50px 70px 0;
     overflow-y: auto;
 }
 
