@@ -94,7 +94,7 @@
                 <div 
                     class="message"
                     v-for="msg in contacts[activeChatIndex].messages"
-                    :class="{ sent: msg.status === 'sent', received: msg.status === 'received' }"
+                    :class="msg.status"
                 >
                     <div class="text">{{ msg.text }}</div>
                     <div class="date">{{ msg.date }}</div>
