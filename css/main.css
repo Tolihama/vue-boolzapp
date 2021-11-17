@@ -200,7 +200,7 @@ h3 {
 
 .message {
     position: relative;
-    width: 40%;
+    width: fit-content;
     padding: 10px 15px 5px;
     margin-bottom: 15px;
 }
