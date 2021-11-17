@@ -2,6 +2,7 @@ const app = new Vue({
     el: '#app',
     data: {
         activeChatIndex: 0,
+        newMsgInput: '',
         me: {
             name: 'Nome Utente',
             avatar: '_io',
@@ -95,5 +96,23 @@ const app = new Vue({
         openChat(chatIndex) {
             this.activeChatIndex = chatIndex;
         },
+        submit() {
+            if (this.newMsgInput !== '') {
+                this.contacts[this.activeChatIndex].messages.push({
+                    date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                    text: this.newMsgInput,
+                    status: 'sent'
+                });
+                this.newMsgInput = '';
+                setTimeout(this.botReply, 1000);
+            }
+        },
+        botReply() {
+            this.contacts[this.activeChatIndex].messages.push({
+                date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                text: 'ok',
+                status: 'received'
+            });
+        }
     },
 });
