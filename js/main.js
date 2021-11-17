@@ -93,13 +93,16 @@ const app = new Vue({
         ],    
     },
     methods: {
+        getDate() {
+            return dayjs().format('DD/MM/YYYY HH:mm:ss');
+        },
         openChat(chatIndex) {
             this.activeChatIndex = chatIndex;
         },
         submit() {
             if (this.newMsgInput !== '') {
                 this.contacts[this.activeChatIndex].messages.push({
-                    date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                    date: this.getDate(),
                     text: this.newMsgInput,
                     status: 'sent'
                 });
@@ -109,7 +112,7 @@ const app = new Vue({
         },
         botReply() {
             this.contacts[this.activeChatIndex].messages.push({
-                date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                date: this.getDate(),
                 text: 'ok',
                 status: 'received'
             });

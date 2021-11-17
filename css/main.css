@@ -50,6 +50,10 @@ h3 {
     flex-grow: 1;
 }
 
+.fs-0 {
+    flex-shrink: 0;
+}
+
 /* APP CONTAINER - GENERAL */
 .container {
     width: 85%;
@@ -82,7 +86,6 @@ h3 {
 /* LEFT */
 .container aside.left {
     width: 25%;
-    flex-shrink: 0;
     border-right: 1px solid #dbdbdb;
 }
 
