@@ -201,6 +201,7 @@ h3 {
 .message {
     position: relative;
     width: fit-content;
+    max-width: 70%;
     padding: 10px 15px 5px;
     margin-bottom: 15px;
 }
@@ -236,6 +237,10 @@ h3 {
     border-left: 15px solid transparent;
     width: 0;
     height: 0;
+}
+
+.message .text {
+    word-wrap: break-word;
 }
 
 .message .date {
