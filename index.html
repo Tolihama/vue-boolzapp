@@ -58,6 +58,8 @@
                 <div 
                     class="chat d-flex aic"
                     v-for="(contact, chatIndex) in contacts"
+                    :class="{ active: chatIndex === activeChatIndex}"
+                    @click="openChat(chatIndex)"
                 >
                     <img
                         class="avatar"
@@ -89,13 +91,13 @@
             </header>
 
             <section class="messages d-flex d-column fg-1">
-                <div class="message send">
-                    <div class="text">Messaggio inviato</div>
-                    <div class="date">10/01/2021 15:50:00</div>
-                </div>
-                <div class="message received">
-                    <div class="text">Messaggio ricevuto</div>
-                    <div class="date">10/01/2021 15:50:00</div>
+                <div 
+                    class="message"
+                    v-for="msg in contacts[activeChatIndex].messages"
+                    :class="{ sent: msg.status === 'sent', received: msg.status === 'received' }"
+                >
+                    <div class="text">{{ msg.text }}</div>
+                    <div class="date">{{ msg.date }}</div>
                 </div>
             </section>
 

@@ -1,6 +1,7 @@
 const app = new Vue({
     el: '#app',
     data: {
+        activeChatIndex: 0,
         me: {
             name: 'Nome Utente',
             avatar: '_io',
@@ -88,7 +89,11 @@ const app = new Vue({
                     }
                 ],
             },
-        ],
-        activeChatIndex: 0,        
+        ],    
+    },
+    methods: {
+        openChat(chatIndex) {
+            this.activeChatIndex = chatIndex;
+        },
     },
 });
