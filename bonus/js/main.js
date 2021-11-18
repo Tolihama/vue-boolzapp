@@ -1,9 +1,6 @@
 const app = new Vue({
     el: '#app',
     data: {
-        activeChatIndex: 0,
-        newMsgInput: '',
-        searchInput: '',
         me: {
             name: 'Nome Utente',
             avatar: '_io',
@@ -91,13 +88,26 @@ const app = new Vue({
                     }
                 ],
             },
-        ],    
+        ],
+        activeChatIndex: 0,
+        activeMessageIndex: null,
+        newMsgInput: '',
+        searchInput: '',
     },
     created() {
+        // day.js localization and plugins
         dayjs.locale('it');
         dayjs.extend(dayjs_plugin_customParseFormat);
         dayjs.extend(dayjs_plugin_isToday);
         dayjs.extend(dayjs_plugin_isYesterday);
+
+        // Messages initialization
+        this.contacts.forEach(e => {
+            const receivedMessages = e.messages.filter(msg => msg.status === 'received');
+            e.lastAccess = dayjs(dayjs(receivedMessages[receivedMessages.length - 1].date, 'DD/MM/YYYY HH:mm:ss')).format('DD/MM/YYYY HH:mm');
+        });
+
+        this.contacts.forEach(e => e.messages.reverse());
     },
     methods: {
         getDate() {
@@ -130,40 +140,45 @@ const app = new Vue({
                 outputDate = `il ${dayjs(refDate).format('DD/MM/YYYY')}`;
             }
 
-            return outputDate;
-        },
-        updateScroll(ref) {
-            ref.scrollTop = ref.scrollHeight - ref.clientHeight;
+            this.contacts[this.activeChatIndex].lastAccess = outputDate;
         },
         openChat(chatIndex) {
-            this.activeChatIndex = chatIndex;
+            if (this.activeMessageIndex === null) {
+                this.activeChatIndex = chatIndex;
+            } else {
+                this.activeMessageIndex = null;
+                this.activeChatIndex = chatIndex;
+            }
         },
         submit() {
             if (this.newMsgInput !== '') {
-                this.contacts[this.activeChatIndex].messages.push({
+                this.contacts[this.activeChatIndex].messages.unshift({
                     date: this.getDate(),
                     text: this.newMsgInput,
                     status: 'sent'
                 });
                 this.newMsgInput = '';
-                setTimeout(() => {
-                    this.updateScroll(this.$refs.messages);
-                }, 50);
                 setTimeout(this.botReply, 1000);
             }
         },
         botReply() {
-            this.contacts[this.activeChatIndex].messages.push({
-                date: this.getDate(),
+            const messageDate = this.getDate();
+            this.contacts[this.activeChatIndex].messages.unshift({
+                date: messageDate,
                 text: 'ok',
                 status: 'received'
             });
-            setTimeout(() => {
-                this.updateScroll(this.$refs.messages);
-            }, 50);
+            this.contacts[this.activeChatIndex].lastAccess = messageDate;
         },
         filterChats() {
             this.contacts.forEach(contact => contact.name.toLowerCase().includes(this.searchInput.toLowerCase()) ? contact.visible = true : contact.visible = false);
         },
+        toggleMenu(index) {
+            index === this.activeMessageIndex ? this.activeMessageIndex = null : this.activeMessageIndex = index;
+        },
+        deleteMessage(index) {
+            this.contacts[this.activeChatIndex].messages.splice(index, 1);
+            this.activeMessageIndex = null;
+        }
     },
 });

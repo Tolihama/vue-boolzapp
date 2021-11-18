@@ -75,7 +75,7 @@
                                 {{ contact.name }}
                             </h2>
                             <h4 class="last-message-date">
-                                {{ checkLastMessageDate(contact.messages[contact.messages.length - 1].date) }}
+                                {{ checkLastMessageDate(contact.messages[0].date) }}
                             </h4>
                         </div>
                         <h4 class="last-message-text">
@@ -96,22 +96,54 @@
                 >
                 <div class="fg-1">
                     <h2>{{ contacts[activeChatIndex].name }}</h2>
-                    <h4 class="last-access">Ultimo accesso {{ checkLastAccessDate() }}</h4>
+                    <h4 class="last-access">
+                        {{ `Ultimo accesso ${contacts[activeChatIndex].lastAccess}` }}
+                    </h4>
                 </div>
                 <i class="fas fa-search icon"></i>
                 <i class="fas fa-paperclip icon"></i>
                 <i class="fas fa-ellipsis-v icon"></i>
             </header>
 
-            <section ref="messages" class="messages d-flex d-column fg-1">
+            <!-- chat messages -->
+            <section 
+                ref="messages" 
+                class="messages d-flex fg-1"
+            >
+
+                <!-- message -->
                 <div 
+                    v-for="(msg, msgIndex) in contacts[activeChatIndex].messages"
                     class="message"
-                    v-for="msg in contacts[activeChatIndex].messages"
                     :class="msg.status"
                 >
-                    <div class="text">{{ msg.text }}</div>
+                    <div class="top-msg d-flex aic">
+                        <div class="text fg-1">
+                            {{ msg.text }}
+                        </div>
+                        <div class="options fs-0">
+                            <i 
+                                class="fas fa-chevron-down icon" @click="toggleMenu(msgIndex)"
+                            ></i>
+                            <ul 
+                                v-if="msgIndex === activeMessageIndex"
+                                class="options-list"
+                            >
+                                <li>
+                                    Message info
+                                </li>
+                                <li 
+                                    class="delete"
+                                    @click="deleteMessage(msgIndex)"
+                                >
+                                    Cancella messaggio
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="date">{{ msg.date }}</div>
                 </div>
+
             </section>
 
             <footer class="d-flex fs-0 aic">

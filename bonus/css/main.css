@@ -193,8 +193,9 @@ h3 {
 }
 
 .right .messages {
+    flex-direction: column-reverse;
     background-image: url('../img/mine.jpg');
-    padding: 50px 70px 0;
+    padding: 10px 70px;
     overflow-y: auto;
     scroll-behavior: smooth;
 }
@@ -237,7 +238,7 @@ h3 {
     border-radius: 0 10px 10px 10px;
 }
 
-.message.sent::after {
+.message.sent::before {
     content: '';
     position: absolute;
     left: 100%;
@@ -259,6 +260,39 @@ h3 {
     height: 0;
 }
 
+.message .options {
+    padding-left: 10px;
+}
+
+.message .options-list {
+    list-style-type: none;
+    position: absolute;
+    bottom: 100%;
+    padding: 20px;
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 2px rgba(0,0,0,.1);
+    z-index: 1;
+}
+
+.message.sent .options-list {
+    right: 0;
+}
+
+.message .options .icon {
+    font-weight: 700;
+    color: #777;
+    cursor: pointer;
+}
+
+.message .options-list > li {
+    padding: 10px;
+}
+
+.message .options-list .delete {
+    cursor: pointer;
+}
+
 .message .text {
     word-wrap: break-word;
 }
@@ -268,4 +302,9 @@ h3 {
     font-size: 12px;
     color: #aaa;
     text-align: right;
+}
+
+.message .text,
+.message .date {
+    pointer-events: none;
 }
