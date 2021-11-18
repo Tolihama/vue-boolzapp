@@ -128,11 +128,7 @@ const app = new Vue({
             }, 50);
         },
         filterChats() {
-            for (i in this.contacts) {
-                const contact = this.contacts[i];
-
-                contact.name.toLowerCase().includes(this.searchInput.toLowerCase()) ? contact.visible = true : contact.visible = false;
-            } 
+            this.contacts.forEach(contact => contact.name.toLowerCase().includes(this.searchInput.toLowerCase()) ? contact.visible = true : contact.visible = false);
         },
     },
 });
