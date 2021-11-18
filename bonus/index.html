@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolzapp</title>
+    <!-- Font Awesome 5.15.4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Lato Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/main.css">
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" class="container d-flex">
+        <!-- left -->
+        <aside class="left d-flex d-column fs-0">
+            <header class="d-flex fs-0 jcc aic">
+                <img 
+                    class="avatar" 
+                    :src="`./img/avatar${me.avatar}.jpg`"
+                    :alt="`${me.name} avatar`"
+                >
+                <div class="fg-1">
+                    <h2>{{ me.name }}</h2>
+                </div>
+                <i class="fas fa-circle-notch icon"></i>
+                <i class="fas fa-comment-alt icon"></i>
+                <i class="fas fa-ellipsis-v icon"></i>
+            </header>
+
+            <section class="notifications d-flex jcc aic">
+                <div class="bell d-flex jcc aic">
+                    <i class="fas fa-bell-slash icon"></i>
+                </div>
+                <div class="fg-1">
+                    <h2>Ricevi notifiche di nuovi messaggi</h2>
+                    <a href="#">Attiva notifiche desktop</a>
+                </div>
+            </section>
+
+            <section class="search d-flex jcc aic">
+                <div class="search-input d-flex aic">
+                    <input 
+                        type="text"
+                        placeholder="Cerca o inizia una nuova chat"
+                        class="fg-1"
+                        v-model.trim="searchInput"
+                        @keyup="filterChats"
+                    >
+                </div>
+            </section>
+
+            <section class="chats fg-1">
+                <div 
+                    class="chat d-flex aic"
+                    v-for="(contact, chatIndex) in contacts"
+                    v-show="contact.visible"
+                    :class="{ active: chatIndex === activeChatIndex}"
+                    @click="openChat(chatIndex)"
+                >
+                    <img
+                        class="avatar"
+                        :src="`./img/avatar${contact.avatar}.jpg`"
+                        :alt="`${contact.name} avatar`"
+                    >
+                    <div class="contact fg-1">
+                        <div class="top-contact d-flex aic">
+                            <h2 class="contact-name fg-1">
+                                {{ contact.name }}
+                            </h2>
+                            <h4 class="last-message-date">
+                                {{ checkLastMessageDate(contact.messages[contact.messages.length - 1].date) }}
+                            </h4>
+                        </div>
+                        <h4 class="last-message-text">
+                            {{ contact.messages[contact.messages.length - 1].text }}
+                        </h4>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <!-- right -->
+        <main class="right d-flex d-column fg-1">
+            <header class="d-flex fs-0 jcc aic">
+                <img 
+                    class="avatar" 
+                    :src="`./img/avatar${contacts[activeChatIndex].avatar}.jpg`"
+                    :alt="`${contacts[activeChatIndex].name} avatar`"
+                >
+                <div class="fg-1">
+                    <h2>{{ contacts[activeChatIndex].name }}</h2>
+                    <h4 class="last-access">Ultimo accesso {{ checkLastAccessDate() }}</h4>
+                </div>
+                <i class="fas fa-search icon"></i>
+                <i class="fas fa-paperclip icon"></i>
+                <i class="fas fa-ellipsis-v icon"></i>
+            </header>
+
+            <section ref="messages" class="messages d-flex d-column fg-1">
+                <div 
+                    class="message"
+                    v-for="msg in contacts[activeChatIndex].messages"
+                    :class="msg.status"
+                >
+                    <div class="text">{{ msg.text }}</div>
+                    <div class="date">{{ msg.date }}</div>
+                </div>
+            </section>
+
+            <footer class="d-flex fs-0 aic">
+                <i class="far fa-smile icon"></i>
+                <input 
+                    type="text"
+                    placeholder="Scrivi un messaggio"
+                    class="send-message fg-1"
+                    v-model.trim="newMsgInput"
+                    @keyup.enter="submit"
+                >
+                <i class="fas fa-microphone icon"></i>
+            </footer>
+        </main>
+
+    </div>
+    
+    <!-- JS -->
+    <!-- day.js -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+    <!-- day.js locale it -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/locale/it.js"></script>
+    <!-- day.js plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/plugin/customParseFormat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/plugin/isToday.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/plugin/isYesterday.js"></script>
+    <!-- Main js -->
+    <script src="./js/main.js"></script>
+</body>
+</html>
