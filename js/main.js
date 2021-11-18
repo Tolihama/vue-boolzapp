@@ -3,6 +3,7 @@ const app = new Vue({
     data: {
         activeChatIndex: 0,
         newMsgInput: '',
+        searchInput: '',
         me: {
             name: 'Nome Utente',
             avatar: '_io',
@@ -97,7 +98,7 @@ const app = new Vue({
             return dayjs().format('DD/MM/YYYY HH:mm:ss');
         },
         updateScroll(ref) {
-            ref.scrollTop = ref.scrollHeight;
+            ref.scrollTop = ref.scrollHeight - ref.clientHeight;
         },
         openChat(chatIndex) {
             this.activeChatIndex = chatIndex;
@@ -125,6 +126,13 @@ const app = new Vue({
             setTimeout(() => {
                 this.updateScroll(this.$refs.messages);
             }, 50);
+        },
+        filterChats() {
+            for (i in this.contacts) {
+                const contact = this.contacts[i];
+
+                contact.name.toLowerCase().includes(this.searchInput.toLowerCase()) ? contact.visible = true : contact.visible = false;
+            } 
         },
     },
 });

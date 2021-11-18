@@ -47,9 +47,11 @@
             <section class="search d-flex jcc aic">
                 <div class="search-input d-flex aic">
                     <input 
-                    type="text"
-                    placeholder="Cerca o inizia una nuova chat"
-                    class="fg-1"
+                        type="text"
+                        placeholder="Cerca o inizia una nuova chat"
+                        class="fg-1"
+                        v-model.trim="searchInput"
+                        @keyup="filterChats"
                     >
                 </div>
             </section>
@@ -58,6 +60,7 @@
                 <div 
                     class="chat d-flex aic"
                     v-for="(contact, chatIndex) in contacts"
+                    v-show="contact.visible"
                     :class="{ active: chatIndex === activeChatIndex}"
                     @click="openChat(chatIndex)"
                 >
@@ -108,7 +111,7 @@
                     placeholder="Scrivi un messaggio"
                     class="send-message fg-1"
                     v-model.trim="newMsgInput"
-                    v-on:keyup.enter="submit"
+                    @keyup.enter="submit"
                 >
                 <i class="fas fa-microphone icon"></i>
             </footer>
